@@ -22,6 +22,8 @@ EXPOSE ${NGINX_PORT}/tcp
 RUN mkdir /var/www && touch /var/log/fpm-php.www.log && chmod 777 /var/log/fpm-php.www.log
 RUN echo "\n;https://github.com/rlerdorf/php7dev/issues/48#issuecomment-174212265\n;touch /var/log/fpm-php.www.log && chmod 777 /var/log/fpm-php.www.log\ncatch_workers_output = yes\nphp_flag[display_errors] = on\nphp_admin_value[error_log] = /var/log/fpm-php.www.log\nphp_admin_flag[log_errors] = on" | tee -a /etc/php/7.4/fpm/pool.d/www.conf
 
+RUN apt-get autoremove -y && apt-get autoclean && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 # Define Mountable Directories
 VOLUME ["/etc/nginx", "/var/www", "/var/log/nginx", "/etc/php/7.1/fpm/pool.d", "/tmp"]
 
