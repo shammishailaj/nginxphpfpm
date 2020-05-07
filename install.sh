@@ -7,7 +7,7 @@ wget -qO - http://nginx.org/keys/nginx_signing.key | apt-key add -
 cat /etc/apt/sources.list.d/nginx.list
 date && locale -a
 apt-get install -y software-properties-common && LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php && apt-get update
-apt-get -y install nginx php7.4-fpm php7.4-common php7.4-cli php7.4-curl php7.4-bcmath php7.4-mbstring php7.4-intl php7.4-json php7.4-mysqlnd php7.4-readline php7.4-xml git htop fontconfig libxrender1 xfonts-75dpi xfonts-base xfonts-utils libfontenc1 x11-common xfonts-encodings libjpeg-turbo8 && php -m
+apt-get -y install nginx php7.4-fpm php7.4-common php7.4-cli php7.4-curl php7.4-bcmath php7.4-mbstring php7.4-intl php7.4-json php7.4-mysqlnd php7.4-readline php7.4-xml php7.4-zip git htop fontconfig libxrender1 xfonts-75dpi xfonts-base xfonts-utils libfontenc1 x11-common xfonts-encodings libjpeg-turbo8 unzip && php -m
 mkdir /etc/nginx/sites-enabled /etc/nginx/sites-available
 wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb
 dpkg -i wkhtmltox_0.12.5-1.bionic_amd64.deb
