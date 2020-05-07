@@ -7,7 +7,7 @@ server {
     access_log  /var/log/nginx/localhost_80.access.log  main;
     error_log /var/log/nginx/localhost_80.error.log debug;
 
-    root   /var/www/telecare/public;
+    root   /path/to/laravel/project/public;
     index  index.php index.html index.htm;
 
     location / {
@@ -27,7 +27,6 @@ server {
 	expires off; # Do not cache dyanmic content
 
 	# With php7.4-fpm
-	#fastcgi_pass unix:/var/run/php5-fpm.sock;
 	fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
 	fastcgi_index index.php;
 	fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
@@ -52,10 +51,9 @@ server {
 	# I do not need logs for stats
 	access_log off;
 	# Security: Only allow access from localhost and local IP
-	allow 127.0.0.1;
-	allow 172.31.4.231;
+	#allow 127.0.0.1;
 	# Send rest of the world to /dev/null
-	deny all;
+	#deny all;
     }
 }
 
