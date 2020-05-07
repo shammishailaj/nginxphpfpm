@@ -15,6 +15,22 @@ rm wkhtmltox_0.12.5-1.bionic_amd64.deb
 ln -sf ../usr/share/zoneinfo/Asia/Kolkata /etc/localtime && /bin/echo -e "LC_ALL=\"C.UTF-8\"\nLANG=\"C.UTF-8\"\nLANGUAGE=\"C.UTF-8\"\nLC_TYPE=\"UTF-8\"\n" | tee -a /etc/environment && export LC_ALL="en_US.UTF-8" && export LANG="en_US.UTF-8" && export LANGUAGE="en_US.UTF-8" && export LC_TYPE="UTF-8"
 
 mkdir /var/www && touch /var/log/fpm-php.www.log && chmod 777 /var/log/fpm-php.www.log
-echo "\n;https://github.com/rlerdorf/php7dev/issues/48#issuecomment-174212265\n;touch /var/log/fpm-php.www.log && chmod 777 /var/log/fpm-php.www.log\ncatch_workers_output = yes\nphp_flag[display_errors] = on\nphp_admin_value[error_log] = /var/log/fpm-php.www.log\nphp_admin_flag[log_errors] = on" | tee -a /etc/php/7.4/fpm/pool.d/www.conf
+echo -e "\n;https://github.com/rlerdorf/php7dev/issues/48#issuecomment-174212265\n;touch /var/log/fpm-php.www.log && chmod 777 /var/log/fpm-php.www.log\ncatch_workers_output = yes\nphp_flag[display_errors] = on\nphp_admin_value[error_log] = /var/log/fpm-php.www.log\nphp_admin_flag[log_errors] = on" | tee -a /etc/php/7.4/fpm/pool.d/www.conf
+
+EXPECTED_CHECKSUM="$(wget -q -O - https://composer.github.io/installer.sig)"
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+ACTUAL_CHECKSUM="$(php -r "echo hash_file('sha384', 'composer-setup.php');")"
+
+if [ "$EXPECTED_CHECKSUM" != "$ACTUAL_CHECKSUM" ]
+then
+    >&2 echo 'ERROR: Invalid installer checksum'
+    rm composer-setup.php
+    exit 1
+fi
+
+php composer-setup.php --quiet --install-dir=bin --filename=composer
+RESULT=$?
+rm composer-setup.php
+echo "Composer installation result: $RESULT"
 
 apt-get autoremove -y && apt-get autoclean && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

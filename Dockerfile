@@ -10,7 +10,7 @@ ENV NGINX_PORT 80
 EXPOSE ${NGINX_PORT}/tcp
 
 # Define Mountable Directories
-VOLUME ["/etc/nginx", "/var/www", "/var/log/nginx", "/etc/php/7.1/fpm/pool.d", "/tmp"]
+VOLUME ["/etc/nginx", "/var/www", "/var/log/nginx", "/tmp"]
 
 #RUN service php7.4-fpm start
 # Start Nginx in foreground
