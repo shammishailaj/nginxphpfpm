@@ -2,9 +2,11 @@
 A repository to have Dockerfile for setting-up nginx+php-fpm
 
 - Version Map
+
 |Version|Ubuntu|PHP|WKHTMLTOPDF|Composer|
 |-------|------|---|-----------|--------|
 |0.0.6|18.04|7.4.5|0.12.5-1.bionic|1.10.6 2020-05-06 10:28:10|
+
 
 
 
