@@ -1,6 +1,5 @@
 FROM ubuntu:18.04
-MAINTAINER Shammi Shailaj
-LABEL maintainer="shammishailaj@gmail.com"
+LABEL author="Shammi Shailaj" maintainer="shammi.shailaj@healthians.com"
 ARG DEBIAN_FRONTEND=noninteractive
 
 COPY install.sh /
@@ -13,8 +12,7 @@ EXPOSE ${NGINX_PORT}/tcp
 # Define Mountable Directories
 VOLUME ["/etc/nginx", "/var/www", "/var/log/nginx", "/tmp"]
 
-RUN /etc/init.d/php7.4-fpm start
-RUN /etc/init.d/nginx start
+RUN /etc/init.d/php7.4-fpm start && /etc/init.d/nginx start
 
 # Start Nginx in foreground
 #CMD /usr/sbin/service php7.4-fpm start; /usr/sbin/nginx -g "daemon off;"
